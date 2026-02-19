@@ -8,7 +8,7 @@ export const weatherCardStyles = StyleSheet.create({
     card: {
         backgroundColor: colors.cardBackground,
         borderRadius: 16,
-        padding: spacing.lg,
+        padding: spacing.md,
         marginHorizontal: spacing.md,
         marginVertical: spacing.sm,
         alignItems: 'center',

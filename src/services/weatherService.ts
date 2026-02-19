@@ -50,11 +50,11 @@ const getErrorMessage = (statusCode: number): string => {
     }
 }
 
-export const getCurrentWeather = async (cityName: string): Promise<WeatherResponse> => {
+export const getCurrentWeather = async (city: string): Promise<WeatherResponse> => {
 
     try {
         
-        const trimmedCity = cityName.trim();
+        const trimmedCity = city.trim();
         if (!trimmedCity) {
             return { success: false, error: "O nome da cidade não pode estar vazio." };
         }

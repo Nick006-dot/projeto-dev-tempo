@@ -13,12 +13,12 @@ export default function Details() {
     const [error, setError] = useState<string | null>(null);
     const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
     const router = useRouter();
-    const { cityName } = useLocalSearchParams<{ cityName: string }>();
+    const { city } = useLocalSearchParams<{ city: string }>();
 
     useEffect(() => {
-        if (cityName) getWeatherData();
+        if (city) getWeatherData();
 
-    }, [cityName])
+    }, [city])
 
 
     const getWeatherData = async () => {
@@ -26,7 +26,7 @@ export default function Details() {
         setLoading(true);
         setError(null);
 
-        const result = await getCurrentWeather(cityName as string);
+        const result = await getCurrentWeather(city as string);
 
         setLoading(false);
 
@@ -35,7 +35,7 @@ export default function Details() {
         } else {
             setError(result.error);
         }
-        
+
     }
 
     return (
@@ -48,23 +48,26 @@ export default function Details() {
 
                 <View style={detailsStyles.header}>
                     <Text style={detailsStyles.title}>Clima atual</Text>
-                    <Text style={detailsStyles.subtitle}>Buscando: {cityName}</Text>
+                    <Text style={detailsStyles.subtitle}>Buscando: {city}</Text>
                 </View>
 
-                <View style={detailsStyles.loadingContainer}>
-                    <ActivityIndicator size="large" color="#4a90e2" />
-                    <Text style={detailsStyles.loadingText}>Carregando dados...</Text>
-                </View>
-                {!loading && error && (
-                <View style={detailsStyles.errorContainer}>
-                    <Text style={detailsStyles.errorText}>{error}</Text>
-                    <TouchableOpacity style={detailsStyles.retryButton} onPress={getWeatherData}>
-                        <Text style={detailsStyles.retryButtonText}>Tentar novamente</Text>
-                    </TouchableOpacity>
-                </View>
+                {loading && (
+                    <View style={detailsStyles.loadingContainer}>
+                        <ActivityIndicator size="large" color="#4a90e2" />
+                        <Text style={detailsStyles.loadingText}>Carregando dados...</Text>
+                    </View>
                 )}
 
-                 {!loading && weatherData && (
+                {!loading && error && (
+                    <View style={detailsStyles.errorContainer}>
+                        <Text style={detailsStyles.errorText}>{error}</Text>
+                        <TouchableOpacity style={detailsStyles.retryButton} onPress={getWeatherData}>
+                            <Text style={detailsStyles.retryButtonText}>Tentar novamente</Text>
+                        </TouchableOpacity>
+                    </View>
+                )}
+
+                {!loading && weatherData && (
                     <WeatherCard weather={weatherData} />
                 )}
             </ScrollView>

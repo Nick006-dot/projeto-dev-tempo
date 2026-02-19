@@ -2,6 +2,7 @@ import { getWeatherIconUrl } from "@/services/weatherService"
 import { weatherCardStyles } from "@/styles/weathercard.styles"
 import { WeatherData } from "@/types/weather"
 import { Image, Text, View } from "react-native"
+import { getTemperatureColor } from "./ChangeTemperatureColor"
 
 
 interface WeatherProps {
@@ -25,8 +26,8 @@ export default function WeatherCard({ weather }: WeatherProps) {
         />
       )}
 
-      <Text style={weatherCardStyles.temperature}>
-        {Math.round(weather.main.temp)} °C
+      <Text style={[weatherCardStyles.temperature, { color: getTemperatureColor(weather.main.temp) }]}>
+        {Math.round(weather.main.temp)}°C
       </Text>
 
       {description && (
@@ -35,19 +36,21 @@ export default function WeatherCard({ weather }: WeatherProps) {
         </Text>
       )}
 
-      <View style={weatherCardStyles.details}>
-        <Text>
+      <View style={weatherCardStyles.detailsContainer}>
+        <View style={weatherCardStyles.detailItem}>
+        <Text style={weatherCardStyles.detailLabel}>
           Sensação Térmica:{" "}
-          {Math.round(weather.main.feels_like)} °C
+          {Math.round(weather.main.feels_like)}°C
         </Text>
 
-        <Text>
+        <Text style={weatherCardStyles.detailLabel}>
           Umidade: {weather.main.humidity} %
         </Text>
 
-        <Text>
+        <Text style={weatherCardStyles.detailLabel}>
           Vento: {weather.wind.speed} m/s
         </Text>
+        </View>
       </View>
     </View>
   )

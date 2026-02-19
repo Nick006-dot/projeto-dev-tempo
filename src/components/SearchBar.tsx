@@ -5,7 +5,7 @@ import { Text, TextInput, TouchableOpacity, View } from "react-native";
 
 
 interface SearchBarProps {
-    onSearch: (cityName: string) => void;
+    onSearch: (city: string) => void;
     loading?: boolean;
 }
 

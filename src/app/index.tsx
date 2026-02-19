@@ -17,10 +17,10 @@ export default function App() {
   const { getCurrentLocation, loading } = useLocation()
   const router = useRouter()
 
-  const handleSearch = (cityName: string) => {
+  const handleSearch = (city: string) => {
     router.push({
       pathname: "/details",
-      params: { city: cityName },
+      params: { city },
     })
   }
 
