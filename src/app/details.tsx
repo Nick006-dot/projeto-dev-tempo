@@ -6,6 +6,8 @@ import { getCurrentWeather } from "@/services/weatherService";
 import { use, useEffect, useState } from "react";
 import WeatherCard from "@/components/WeatherCard";
 import { WeatherData } from "@/types/weather";
+import { ForecastItem } from "@/types/weather";
+import WeatherMap from "@/components/WeatherMap";
 
 
 export default function Details() {
@@ -68,7 +70,13 @@ export default function Details() {
                 )}
 
                 {!loading && weatherData && (
-                    <WeatherCard weather={weatherData} />
+                    <>
+                        <WeatherCard weather={weatherData} />
+                        <WeatherMap
+                            coord={weatherData.coord}
+                            cityName={weatherData.name}
+                        />
+                    </>
                 )}
             </ScrollView>
         </SafeAreaView>
